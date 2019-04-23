@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "696455624905",
+    "firebase_url": "https://jetfarm-test1.firebaseio.com",
+    "project_id": "jetfarm-test1",
+    "storage_bucket": "jetfarm-test1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696455624905:android:a07c2b3a1728b21d",
+        "android_client_info": {
+          "package_name": "com.yoneya1014.House_enviroment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696455624905-jm1kcbrsc3m9glhfv3ijm8gd2bupsf0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yoneya1014.House_enviroment",
+            "certificate_hash": "c57d0092741d7323191df02c0b5deae6ec2a79aa"
+          }
+        },
+        {
+          "client_id": "696455624905-dqfed11usea2vsc5oqr80ue51aqtf2om.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-E7tyQ3KJqwR_s84F4QH5jSYgi2eTSSc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696455624905-dqfed11usea2vsc5oqr80ue51aqtf2om.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "696455624905-igar4291qbeobbq7d9kgnfakthuc95sp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yoneya1014.jetfarm-test3"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696455624905:android:46f636f187c21ae8",
+        "android_client_info": {
+          "package_name": "com.yoneya1014.jetfarm_test1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696455624905-9rvsqmohgsibdoh5j8nbdkuss9n8c17f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yoneya1014.jetfarm_test1",
+            "certificate_hash": "c57d0092741d7323191df02c0b5deae6ec2a79aa"
+          }
+        },
+        {
+          "client_id": "696455624905-dqfed11usea2vsc5oqr80ue51aqtf2om.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-E7tyQ3KJqwR_s84F4QH5jSYgi2eTSSc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696455624905-dqfed11usea2vsc5oqr80ue51aqtf2om.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "696455624905-igar4291qbeobbq7d9kgnfakthuc95sp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yoneya1014.jetfarm-test3"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

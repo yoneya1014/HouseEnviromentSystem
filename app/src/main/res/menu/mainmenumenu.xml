@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainMenuActivity">
+    <item
+        android:id="@+id/menu3"
+        android:orderInCategory="1"
+        android:title="データ更新"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu4"
+        android:orderInCategory="2"
+        android:title="バージョン情報"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu5"
+        android:orderInCategory="3"
+        android:title="サインアウト"
+        app:showAsAction="never" />
+</menu>

@@ -37,9 +37,9 @@ class ShowSavedDataActivity : AppCompatActivity() {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         progressDialog.show()
         if (netWorkCheck(this)) {
-            val temp = findViewById<TextView>(R.id.textView5)
-            val humid = findViewById<TextView>(R.id.textView6)
-            val camera = findViewById<TextView>(R.id.textView7)
+            val temp = findViewById<TextView>(R.id.textView8)
+            val humid = findViewById<TextView>(R.id.textView9)
+            val camera = findViewById<TextView>(R.id.textView10)
             val time = findViewById<TextView>(R.id.savedtime)
             val imageView = findViewById<ImageView>(R.id.imageView2)
             docRef = FirebaseFirestore.getInstance().collection("userSavedData").document(dataName)

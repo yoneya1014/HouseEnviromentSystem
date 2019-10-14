@@ -24,21 +24,34 @@ import java.util.*
 class ShowInfoActivity : AppCompatActivity() {
 
     private var cameraNumber = 0
-    private var tempValue: Double? = 0.0
-    private var humidValue: Double? = 0.0
+    private var templatureValue: Double? = 0.0
+    private var humidityValue: Double? = 0.0
+    private var soliHumidityValue: Double? = 0.0
+    private var illuminanceValue: Double? = 0.0
+    private var barometricPressureValue: Double? = 0.0
+    private var timeStampValue: Date? = Date()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.showinfo)
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("お待ちください")
+        progressDialog.setCancelable(false)
+        progressDialog.isIndeterminate = false
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        progressDialog.show()
         val intent = intent
         cameraNumber = intent.getIntExtra("cameraNumber", 0)
         title = "カメラ$cameraNumber"
         val actionBar = supportActionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         if (netWorkCheck(this)) {
-            val temp = findViewById<TextView>(R.id.textView3)
-            val humid = findViewById<TextView>(R.id.textView4)
-            val timeNow = findViewById<TextView>(R.id.time_now)
+            val templature = findViewById<TextView>(R.id.show_templature)
+            val humidity = findViewById<TextView>(R.id.show_humidity)
+            val soliHumidity = findViewById<TextView>(R.id.show_soli_humidity)
+            val illuminance = findViewById<TextView>(R.id.show_illuminance)
+            val barometricPressure = findViewById<TextView>(R.id.show_barometric_pressure)
+            val timeStamp = findViewById<TextView>(R.id.show_timestamp)
             val camera = findViewById<ImageView>(R.id.imageView)
             val docRef = FirebaseFirestore.getInstance().collection("houseEnvironment").document("camera$cameraNumber")
             val mStorageRef = FirebaseStorage.getInstance().reference.child("artboard$cameraNumber.png")
@@ -56,19 +69,26 @@ class ShowInfoActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document!!.exists()) {
-                        tempValue = document.getDouble("temp")
-                        humidValue = document.getDouble("humid")
-                        temp.text = String.format("温度：%s℃", tempValue!!.toString())
-                        humid.text = String.format("湿度：%s％", humidValue!!.toString())
+                        templatureValue = document.getDouble("templature")
+                        humidityValue = document.getDouble("humidity")
+                        soliHumidityValue = document.getDouble("soliHumidity")
+                        illuminanceValue = document.getDouble("illuminance")
+                        barometricPressureValue = document.getDouble("barometricPressure")
+                        timeStampValue = document.getTimestamp("timestamp")!!.toDate()
+                        templature.text = String.format("気温：%s℃", templatureValue!!.toString())
+                        humidity.text = String.format("湿度：%s％", humidityValue!!.toString())
+                        soliHumidity.text = String.format("土壌湿度：%s％", soliHumidityValue!!.toString())
+                        illuminance.text = String.format("照度：%s％", illuminanceValue!!.toString())
+                        barometricPressure.text = String.format("気圧：%shPa", barometricPressureValue!!.toString())
                     }
+                    progressDialog.dismiss()
                 }
             }.addOnFailureListener {
                 Toast.makeText(this, "データの取得に失敗しました", Toast.LENGTH_LONG).show()
                 finish()
             }
-            val timestamp = Timestamp(System.currentTimeMillis())
             val sdf = SimpleDateFormat("yyyy年MM月dd日 HH時mm分ss秒", Locale.JAPAN)
-            timeNow.text = String.format("最終更新時刻：%s", sdf.format(timestamp))
+            timeStamp.text = String.format("最終更新時刻：%s", sdf.format(timeStampValue))
         } else {
             Toast.makeText(this, "コネクションの確立に失敗しました", Toast.LENGTH_LONG).show()
         }
@@ -87,9 +107,18 @@ class ShowInfoActivity : AppCompatActivity() {
                 return true
             }
             R.id.menu1 -> if (netWorkCheck(this)) {
-                val temp = findViewById<TextView>(R.id.textView3)
-                val humid = findViewById<TextView>(R.id.textView4)
-                val time_now = findViewById<TextView>(R.id.time_now)
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setMessage("お待ちください")
+                progressDialog.setCancelable(false)
+                progressDialog.isIndeterminate = false
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                progressDialog.show()
+                val templature = findViewById<TextView>(R.id.show_templature)
+                val humidity = findViewById<TextView>(R.id.show_humidity)
+                val soliHumidity = findViewById<TextView>(R.id.show_soli_humidity)
+                val illuminance = findViewById<TextView>(R.id.show_illuminance)
+                val barometricPressure = findViewById<TextView>(R.id.show_barometric_pressure)
+                val timeStamp = findViewById<TextView>(R.id.show_timestamp)
                 val camera = findViewById<ImageView>(R.id.imageView)
                 val docRef = FirebaseFirestore.getInstance().collection("houseEnvironment").document("camera$cameraNumber")
                 val mStorageRef = FirebaseStorage.getInstance().reference.child("artboard$cameraNumber.png")
@@ -104,16 +133,23 @@ class ShowInfoActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val document = task.result
                         if (document!!.exists()) {
-                            tempValue = document.getDouble("temp")
-                            humidValue = document.getDouble("humid")
-                            temp.text = String.format("温度：%s℃", tempValue!!.toString())
-                            humid.text = String.format("湿度：%s％", humidValue!!.toString())
+                            templatureValue = document.getDouble("templature")
+                            humidityValue = document.getDouble("humidity")
+                            soliHumidityValue = document.getDouble("soliHumidity")
+                            illuminanceValue = document.getDouble("illuminance")
+                            barometricPressureValue = document.getDouble("barometricPressure")
+                            timeStampValue = document.getTimestamp("timestamp")!!.toDate()
+                            templature.text = String.format("温度：%s℃", templatureValue!!.toString())
+                            humidity.text = String.format("湿度：%s％", humidityValue!!.toString())
+                            soliHumidity.text = String.format("土壌湿度：%s％", soliHumidityValue!!.toString())
+                            illuminance.text = String.format("照度：%s％", illuminanceValue!!.toString())
+                            barometricPressure.text = String.format("気圧：%hPa", barometricPressureValue!!.toString())
                         }
+                        progressDialog.dismiss()
                     }
                 }
-                val timestamp = Timestamp(System.currentTimeMillis())
                 val sdf = SimpleDateFormat("yyyy年MM月dd日 HH時mm分ss秒", Locale.JAPAN)
-                time_now.text = String.format("最終更新時刻：%s", sdf.format(timestamp))
+                timeStamp.text = String.format("最終更新時刻：%s", sdf.format(timeStampValue))
             } else {
                 Toast.makeText(this, "コネクションの確立に失敗しました", Toast.LENGTH_LONG).show()
             }
@@ -133,8 +169,11 @@ class ShowInfoActivity : AppCompatActivity() {
                 val byteArray = byteArrayOutputStream.toByteArray()
                 val encodedImage = Base64.encodeToString(byteArray, Base64.NO_WRAP)
                 val putData = HashMap<String, Any>()
-                putData["temp"] = tempValue!!
-                putData["humid"] = humidValue!!
+                putData["templature"] = templatureValue!!
+                putData["humidity"] = humidityValue!!
+                putData["soliHumidity"] = soliHumidityValue!!
+                putData["illuminance"] = illuminanceValue!!
+                putData["barometricPressure"] = barometricPressureValue!!
                 putData["base64image"] = encodedImage
                 putData["timestamp"] = timestamp
                 putData["cameranumber"] = cameraNumber

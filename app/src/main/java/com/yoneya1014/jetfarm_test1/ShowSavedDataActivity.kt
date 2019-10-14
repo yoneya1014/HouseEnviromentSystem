@@ -37,10 +37,13 @@ class ShowSavedDataActivity : AppCompatActivity() {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         progressDialog.show()
         if (netWorkCheck(this)) {
-            val temp = findViewById<TextView>(R.id.textView8)
-            val humid = findViewById<TextView>(R.id.textView9)
-            val camera = findViewById<TextView>(R.id.textView10)
-            val time = findViewById<TextView>(R.id.savedtime)
+            val templature = findViewById<TextView>(R.id.saved_templature)
+            val humidity = findViewById<TextView>(R.id.saved_humidity)
+            val soliHumidity = findViewById<TextView>(R.id.saved_soli_humidity)
+            val illuminance = findViewById<TextView>(R.id.saved_illuminance)
+            val barometricPressure = findViewById<TextView>(R.id.saved_barometric_pressure)
+            val camera = findViewById<TextView>(R.id.saved_camera_number)
+            val timeStamp = findViewById<TextView>(R.id.saved_timestamp)
             val imageView = findViewById<ImageView>(R.id.imageView2)
             docRef = FirebaseFirestore.getInstance().collection("userSavedData").document(dataName)
             docRef!!.get().addOnCompleteListener { task ->
@@ -48,16 +51,19 @@ class ShowSavedDataActivity : AppCompatActivity() {
                     val document = task.result
                     if (document!!.exists()) {
                         val sdf = SimpleDateFormat("yyyy年MM月dd日 HH時mm分ss秒", Locale.JAPAN)
-                        temp.text = String.format("温度：%s℃", document.getDouble("temp")!!.toString())
-                        humid.text = String.format("湿度：%s％", document.getDouble("humid")!!.toString())
-                        time.text = String.format("保存日時：%s", sdf.format(document.getTimestamp("timestamp")!!.toDate()))
+                        templature.text = String.format("温度：%s℃", document.getDouble("templature")!!.toString())
+                        humidity.text = String.format("湿度：%s％", document.getDouble("humidity")!!.toString())
+                        soliHumidity.text = String.format("土壌湿度：%s％", document.getDouble("soliHumidity")!!.toString())
+                        illuminance.text = String.format("照度：%s％", document.getDouble("illuminance")!!.toString())
+                        barometricPressure.text = String.format("気圧：%shPa", document.getDouble("barometricPressure")!!.toString())
+                        timeStamp.text = String.format("保存日時：%s", sdf.format(document.getTimestamp("timestamp")!!.toDate()))
                         camera.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("cameranumber"))
                         val imagearray = Base64.decode(document.getString("base64image"), Base64.DEFAULT)
                         val bitmap = BitmapFactory.decodeByteArray(imagearray, 0, imagearray.size)
                         imageView.setImageBitmap(bitmap)
                     }
+                    progressDialog.dismiss()
                 }
-                progressDialog.dismiss()
             }
         } else {
             val builder = AlertDialog.Builder(applicationContext)

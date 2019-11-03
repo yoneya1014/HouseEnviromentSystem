@@ -26,7 +26,7 @@ class ShowSavedDataActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.showsaveddata)
         val intent = intent
-        val dataName = intent.getStringExtra("dataname")
+        val dataName = intent.getStringExtra("dataName")
         title = dataName
         val actionBar = supportActionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -37,11 +37,11 @@ class ShowSavedDataActivity : AppCompatActivity() {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         progressDialog.show()
         if (netWorkCheck(this)) {
-            val templature = findViewById<TextView>(R.id.saved_templature)
+            val temperature = findViewById<TextView>(R.id.saved_temperature)
             val humidity = findViewById<TextView>(R.id.saved_humidity)
-            val soliHumidity = findViewById<TextView>(R.id.saved_soli_humidity)
-            val illuminance = findViewById<TextView>(R.id.saved_illuminance)
-            val barometricPressure = findViewById<TextView>(R.id.saved_barometric_pressure)
+            val soilHumidity = findViewById<TextView>(R.id.saved_soil_humidity)
+            val illuminate = findViewById<TextView>(R.id.saved_illuminate)
+            val barometricPressure = findViewById<TextView>(R.id.saved_barometric)
             val camera = findViewById<TextView>(R.id.saved_camera_number)
             val timeStamp = findViewById<TextView>(R.id.saved_timestamp)
             val imageView = findViewById<ImageView>(R.id.imageView2)
@@ -51,13 +51,13 @@ class ShowSavedDataActivity : AppCompatActivity() {
                     val document = task.result
                     if (document!!.exists()) {
                         val sdf = SimpleDateFormat("yyyy年MM月dd日 HH時mm分ss秒", Locale.JAPAN)
-                        templature.text = String.format("温度：%s℃", document.getDouble("templature")!!.toString())
+                        temperature.text = String.format("温度：%s℃", document.getDouble("temperature")!!.toString())
                         humidity.text = String.format("湿度：%s％", document.getDouble("humidity")!!.toString())
-                        soliHumidity.text = String.format("土壌湿度：%s％", document.getDouble("soliHumidity")!!.toString())
-                        illuminance.text = String.format("照度：%s％", document.getDouble("illuminance")!!.toString())
+                        soilHumidity.text = String.format("土壌湿度：%s％", document.getDouble("soilHumidity")!!.toString())
+                        illuminate.text = String.format("照度：%s％", document.getDouble("illuminate")!!.toString())
                         barometricPressure.text = String.format("気圧：%shPa", document.getDouble("barometricPressure")!!.toString())
                         timeStamp.text = String.format("保存日時：%s", sdf.format(document.getTimestamp("timestamp")!!.toDate()))
-                        camera.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("cameranumber"))
+                        camera.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("cameraNumber"))
                         val imagearray = Base64.decode(document.getString("base64image"), Base64.DEFAULT)
                         val bitmap = BitmapFactory.decodeByteArray(imagearray, 0, imagearray.size)
                         imageView.setImageBitmap(bitmap)

@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/show_templature"
+                android:id="@+id/show_temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -33,7 +33,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/show_soli_humidity"
+                android:id="@+id/show_soil_humidity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -42,7 +42,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/show_illuminance"
+                android:id="@+id/show_illuminate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -51,7 +51,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/show_barometric_pressure"
+                android:id="@+id/show_barometric"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"

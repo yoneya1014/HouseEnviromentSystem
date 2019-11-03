@@ -23,7 +23,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/saved_templature"
+                android:id="@+id/saved_temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -41,7 +41,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/saved_soli_humidity"
+                android:id="@+id/saved_soil_humidity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -50,7 +50,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/saved_illuminance"
+                android:id="@+id/saved_illuminate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -59,7 +59,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/saved_barometric_pressure"
+                android:id="@+id/saved_barometric"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"

@@ -23,7 +23,7 @@ class SavedDataSelectMenuActivity : AppCompatActivity() {
             val list = parent as ListView
             val text = list.getItemAtPosition(position) as String
             val intent = Intent(applicationContext, ShowSavedDataActivity::class.java)
-            intent.putExtra("dataname", text)
+            intent.putExtra("dataName", text)
             startActivity(intent)
         }
     }

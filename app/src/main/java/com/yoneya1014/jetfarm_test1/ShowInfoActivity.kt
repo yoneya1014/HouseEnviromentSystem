@@ -24,11 +24,11 @@ import java.util.*
 class ShowInfoActivity : AppCompatActivity() {
 
     private var cameraNumber = 0
-    private var templatureValue: Double? = 0.0
+    private var temperatureValue: Double? = 0.0
     private var humidityValue: Double? = 0.0
-    private var soliHumidityValue: Double? = 0.0
-    private var illuminanceValue: Double? = 0.0
-    private var barometricPressureValue: Double? = 0.0
+    private var soilHumidityValue: Double? = 0.0
+    private var illuminateValue: Double? = 0.0
+    private var barometricValue: Double? = 0.0
     private var timeStampValue: Date? = Date()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +46,11 @@ class ShowInfoActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         if (netWorkCheck(this)) {
-            val templature = findViewById<TextView>(R.id.show_templature)
+            val templature = findViewById<TextView>(R.id.show_temperature)
             val humidity = findViewById<TextView>(R.id.show_humidity)
-            val soliHumidity = findViewById<TextView>(R.id.show_soli_humidity)
-            val illuminance = findViewById<TextView>(R.id.show_illuminance)
-            val barometricPressure = findViewById<TextView>(R.id.show_barometric_pressure)
+            val soliHumidity = findViewById<TextView>(R.id.show_soil_humidity)
+            val illuminance = findViewById<TextView>(R.id.show_illuminate)
+            val barometricPressure = findViewById<TextView>(R.id.show_barometric)
             val timeStamp = findViewById<TextView>(R.id.show_timestamp)
             val camera = findViewById<ImageView>(R.id.imageView)
             val docRef = FirebaseFirestore.getInstance().collection("houseEnvironment").document("camera$cameraNumber")
@@ -69,17 +69,17 @@ class ShowInfoActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document!!.exists()) {
-                        templatureValue = document.getDouble("templature")
+                        temperatureValue = document.getDouble("temperature")
                         humidityValue = document.getDouble("humidity")
-                        soliHumidityValue = document.getDouble("soliHumidity")
-                        illuminanceValue = document.getDouble("illuminance")
-                        barometricPressureValue = document.getDouble("barometricPressure")
+                        soilHumidityValue = document.getDouble("soilHumidity")
+                        illuminateValue = document.getDouble("illuminate")
+                        barometricValue = document.getDouble("barometric")
                         timeStampValue = document.getTimestamp("timestamp")!!.toDate()
-                        templature.text = String.format("気温：%s℃", templatureValue!!.toString())
+                        templature.text = String.format("気温：%s℃", temperatureValue!!.toString())
                         humidity.text = String.format("湿度：%s％", humidityValue!!.toString())
-                        soliHumidity.text = String.format("土壌湿度：%s％", soliHumidityValue!!.toString())
-                        illuminance.text = String.format("照度：%s％", illuminanceValue!!.toString())
-                        barometricPressure.text = String.format("気圧：%shPa", barometricPressureValue!!.toString())
+                        soliHumidity.text = String.format("土壌湿度：%s％", soilHumidityValue!!.toString())
+                        illuminance.text = String.format("照度：%s％", illuminateValue!!.toString())
+                        barometricPressure.text = String.format("気圧：%shPa", barometricValue!!.toString())
                     }
                     progressDialog.dismiss()
                 }
@@ -113,11 +113,11 @@ class ShowInfoActivity : AppCompatActivity() {
                 progressDialog.isIndeterminate = false
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
                 progressDialog.show()
-                val templature = findViewById<TextView>(R.id.show_templature)
+                val temperature = findViewById<TextView>(R.id.show_temperature)
                 val humidity = findViewById<TextView>(R.id.show_humidity)
-                val soliHumidity = findViewById<TextView>(R.id.show_soli_humidity)
-                val illuminance = findViewById<TextView>(R.id.show_illuminance)
-                val barometricPressure = findViewById<TextView>(R.id.show_barometric_pressure)
+                val soilHumidity = findViewById<TextView>(R.id.show_soil_humidity)
+                val illuminate = findViewById<TextView>(R.id.show_illuminate)
+                val barometricPressure = findViewById<TextView>(R.id.show_barometric)
                 val timeStamp = findViewById<TextView>(R.id.show_timestamp)
                 val camera = findViewById<ImageView>(R.id.imageView)
                 val docRef = FirebaseFirestore.getInstance().collection("houseEnvironment").document("camera$cameraNumber")
@@ -133,17 +133,17 @@ class ShowInfoActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val document = task.result
                         if (document!!.exists()) {
-                            templatureValue = document.getDouble("templature")
+                            temperatureValue = document.getDouble("temperature")
                             humidityValue = document.getDouble("humidity")
-                            soliHumidityValue = document.getDouble("soliHumidity")
-                            illuminanceValue = document.getDouble("illuminance")
-                            barometricPressureValue = document.getDouble("barometricPressure")
+                            soilHumidityValue = document.getDouble("soilHumidity")
+                            illuminateValue = document.getDouble("illuminate")
+                            barometricValue = document.getDouble("barometricPressure")
                             timeStampValue = document.getTimestamp("timestamp")!!.toDate()
-                            templature.text = String.format("温度：%s℃", templatureValue!!.toString())
+                            temperature.text = String.format("温度：%s℃", temperatureValue!!.toString())
                             humidity.text = String.format("湿度：%s％", humidityValue!!.toString())
-                            soliHumidity.text = String.format("土壌湿度：%s％", soliHumidityValue!!.toString())
-                            illuminance.text = String.format("照度：%s％", illuminanceValue!!.toString())
-                            barometricPressure.text = String.format("気圧：%hPa", barometricPressureValue!!.toString())
+                            soilHumidity.text = String.format("土壌湿度：%s％", soilHumidityValue!!.toString())
+                            illuminate.text = String.format("照度：%s％", illuminateValue!!.toString())
+                            barometricPressure.text = String.format("気圧：%hPa", barometricValue!!.toString())
                         }
                         progressDialog.dismiss()
                     }
@@ -169,14 +169,14 @@ class ShowInfoActivity : AppCompatActivity() {
                 val byteArray = byteArrayOutputStream.toByteArray()
                 val encodedImage = Base64.encodeToString(byteArray, Base64.NO_WRAP)
                 val putData = HashMap<String, Any>()
-                putData["templature"] = templatureValue!!
+                putData["temperature"] = temperatureValue!!
                 putData["humidity"] = humidityValue!!
-                putData["soliHumidity"] = soliHumidityValue!!
-                putData["illuminance"] = illuminanceValue!!
-                putData["barometricPressure"] = barometricPressureValue!!
+                putData["soilHumidity"] = soilHumidityValue!!
+                putData["illuminate"] = illuminateValue!!
+                putData["barometricPressure"] = barometricValue!!
                 putData["base64image"] = encodedImage
                 putData["timestamp"] = timestamp
-                putData["cameranumber"] = cameraNumber
+                putData["cameraNumber"] = cameraNumber
                 val docRef = FirebaseFirestore.getInstance().collection("userSavedData").document(format.format(timestamp))
                 docRef.set(putData)
                         .addOnSuccessListener {

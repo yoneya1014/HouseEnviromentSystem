@@ -57,39 +57,39 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(savedDataView)
         }
         imageButton1!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 1)
+            intent.putExtra("id", 1)
             startActivity(intent)
         }
         imageButton2!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 2)
+            intent.putExtra("id", 2)
             startActivity(intent)
         }
         imageButton3!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 3)
+            intent.putExtra("id", 3)
             startActivity(intent)
         }
         imageButton4!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 4)
+            intent.putExtra("id", 4)
             startActivity(intent)
         }
         imageButton5!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 5)
+            intent.putExtra("id", 5)
             startActivity(intent)
         }
         imageButton6!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 6)
+            intent.putExtra("id", 6)
             startActivity(intent)
         }
         imageButton7!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 7)
+            intent.putExtra("id", 7)
             startActivity(intent)
         }
         imageButton8!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 8)
+            intent.putExtra("id", 8)
             startActivity(intent)
         }
         imageButton9!!.setOnClickListener {
-            intent.putExtra("cameraNumber", 9)
+            intent.putExtra("id", 9)
             startActivity(intent)
         }
         mStorageRef = FirebaseStorage.getInstance().reference
@@ -295,7 +295,7 @@ class MainMenuActivity : AppCompatActivity() {
             R.id.menu4 -> {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("バージョン情報")
-                        .setMessage("ハウス環境確認アプリ Ver 0.0.1β")
+                        .setMessage("ハウス環境確認アプリ Ver 1.0.0")
                         .setCancelable(false)
                         .setPositiveButton("OK") { _, _ -> }.create()
                 builder.show()

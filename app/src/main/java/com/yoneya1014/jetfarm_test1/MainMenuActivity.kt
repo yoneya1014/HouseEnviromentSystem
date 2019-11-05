@@ -103,7 +103,7 @@ class MainMenuActivity : AppCompatActivity() {
             progressDialog.show()
             for (progress_value in 1..9) {
                 val imageRef = mStorageRef!!.child("artboard$progress_value.png")
-                val size = (1024 * 1024).toLong()
+                val size = (256 * 256).toLong()
                 imageRef.getBytes(size).addOnCompleteListener { task ->
                     val data = task.result
                     assert(data != null)
@@ -166,7 +166,7 @@ class MainMenuActivity : AppCompatActivity() {
             progressDialog.show()
             for (progress_value in 1..9) {
                 val imageRef = mStorageRef!!.child("artboard$progress_value.png")
-                val size = (1024 * 1024).toLong()
+                val size = (256 * 256).toLong()
                 imageRef.getBytes(size).addOnCompleteListener { task ->
                     val data = task.result
                     assert(data != null)
@@ -242,7 +242,7 @@ class MainMenuActivity : AppCompatActivity() {
                     progressDialog.show()
                     for (progress_value in 1..9) {
                         val imageRef = mStorageRef.child("artboard$progress_value.png")
-                        val size = (1024 * 1024).toLong()
+                        val size = (256 * 256).toLong()
                         imageRef.getBytes(size).addOnCompleteListener { task ->
                             val data = task.result
                             assert(data != null)

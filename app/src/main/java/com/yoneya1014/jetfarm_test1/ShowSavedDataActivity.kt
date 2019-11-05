@@ -57,8 +57,7 @@ class ShowSavedDataActivity : AppCompatActivity() {
                         illuminate.text = String.format("照度：%s％", document.getDouble("illuminate")!!.toString())
                         barometricPressure.text = String.format("気圧：%shPa", document.getDouble("barometricPressure")!!.toString())*/
                         timeStamp.text = String.format("保存日時：%s", sdf.format(document.getTimestamp("timestamp")!!.toDate()))
-                        //
-                        // id.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("cameraNumber"))
+                        id.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("id"))
                         val imageArray = Base64.decode(document.getString("base64image"), Base64.DEFAULT)
                         val bitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
                         imageView.setImageBitmap(bitmap)

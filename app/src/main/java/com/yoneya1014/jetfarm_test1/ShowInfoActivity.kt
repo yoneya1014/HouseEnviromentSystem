@@ -57,7 +57,7 @@ class ShowInfoActivity : AppCompatActivity() {
             val camera = findViewById<ImageView>(R.id.imageView)
             val docRef = FirebaseFirestore.getInstance().collection("houseEnvironment").document("data$id")
             val mStorageRef = FirebaseStorage.getInstance().reference.child("artboard$id.png")
-            val size = (1024 * 1024).toLong()
+            val size = (256 * 256).toLong()
             mStorageRef.getBytes(size).addOnCompleteListener { task ->
                 val data = task.result
                 assert(data != null)
@@ -175,7 +175,7 @@ class ShowInfoActivity : AppCompatActivity() {
                 putData["humidity"] = humidityValue!!
                 putData["soilHumidity"] = soilHumidityValue!!
                 putData["illuminate"] = illuminateValue!!
-                putData["barometricPressure"] = barometricValue!!
+                putData["barometric"] = barometricValue!!
                 putData["base64image"] = encodedImage
                 putData["timestamp"] = timestamp
                 putData["id"] = id

@@ -105,6 +105,11 @@ class ShowInfoActivity : AppCompatActivity(), Runnable {
         handler.post(this)
     }
 
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(this)
+    }
+
     override fun run() {
         val temperature = findViewById<TextView>(R.id.show_temperature)
         val humidity = findViewById<TextView>(R.id.show_humidity)
@@ -116,7 +121,7 @@ class ShowInfoActivity : AppCompatActivity(), Runnable {
         val mStorageRef = FirebaseStorage.getInstance()
                 .reference
                 .child("artboard$id.png")
-        val size = (256 * 256).toLong()
+        val size = (64 * 64).toLong()
         mStorageRef.getBytes(size).addOnCompleteListener { task ->
             val data = task.result
             assert(data != null)

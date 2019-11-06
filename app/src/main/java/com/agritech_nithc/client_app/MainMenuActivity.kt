@@ -102,7 +102,7 @@ class MainMenuActivity : AppCompatActivity(), Runnable {
             progressDialog.show()
             for (progress_value in 1..9) {
                 val imageRef = mStorageRef!!.child("artboard$progress_value.png")
-                val size = (256 * 256).toLong()
+                val size = (64 * 64).toLong()
                 imageRef.getBytes(size).addOnCompleteListener { task ->
                     val data = task.result
                     assert(data != null)
@@ -145,7 +145,7 @@ class MainMenuActivity : AppCompatActivity(), Runnable {
         if (netWorkCheck(this)) {
             for (progress_value in 1..9) {
                 val imageRef = mStorageRef!!.child("artboard$progress_value.png")
-                val size = (256 * 256).toLong()
+                val size = (64 * 64).toLong()
                 imageRef.getBytes(size).addOnCompleteListener { task ->
                     val data = task.result
                     assert(data != null)
@@ -188,7 +188,7 @@ class MainMenuActivity : AppCompatActivity(), Runnable {
             progressDialog.show()
             for (progress_value in 1..9) {
                 val imageRef = mStorageRef!!.child("artboard$progress_value.png")
-                val size = (256 * 256).toLong()
+                val size = (64 * 64).toLong()
                 imageRef.getBytes(size).addOnCompleteListener { task ->
                     val data = task.result
                     assert(data != null)
@@ -253,6 +253,7 @@ class MainMenuActivity : AppCompatActivity(), Runnable {
     }
 
     private fun signOut() {
+        handler.removeCallbacks(this)
         val mDb = FirebaseFirestore.getInstance()
         val preferences = getSharedPreferences("Agritech-NITHC-Data", Context.MODE_PRIVATE)
         val editor = preferences.edit()

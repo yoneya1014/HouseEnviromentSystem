@@ -141,6 +141,11 @@ class MainMenuActivity : AppCompatActivity(), Runnable {
         handler.post(this)
     }
 
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(this)
+    }
+
     override fun run() {
         if (netWorkCheck(this)) {
             for (progress_value in 1..9) {

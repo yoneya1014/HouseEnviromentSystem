@@ -1,4 +1,4 @@
-package com.yoneya1014.jetfarm_test1
+package com.agritech_nithc.client_app
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
@@ -39,10 +39,10 @@ class ShowSavedDataActivity : AppCompatActivity() {
         if (netWorkCheck(this)) {
             val temperature = findViewById<TextView>(R.id.saved_temperature)
             val humidity = findViewById<TextView>(R.id.saved_humidity)
-            val soilHumidity = findViewById<TextView>(R.id.saved_soil_humidity)
+            /*val soilHumidity = findViewById<TextView>(R.id.saved_soil_humidity)
             val illuminate = findViewById<TextView>(R.id.saved_illuminate)
-            val barometricPressure = findViewById<TextView>(R.id.saved_barometric)
-            val camera = findViewById<TextView>(R.id.saved_camera_number)
+            val barometricPressure = findViewById<TextView>(R.id.saved_barometric)*/
+            val id = findViewById<TextView>(R.id.saved_id)
             val timeStamp = findViewById<TextView>(R.id.saved_timestamp)
             val imageView = findViewById<ImageView>(R.id.imageView2)
             docRef = FirebaseFirestore.getInstance().collection("userSavedData").document(dataName)
@@ -53,13 +53,13 @@ class ShowSavedDataActivity : AppCompatActivity() {
                         val sdf = SimpleDateFormat("yyyy年MM月dd日 HH時mm分ss秒", Locale.JAPAN)
                         temperature.text = String.format("温度：%s℃", document.getDouble("temperature")!!.toString())
                         humidity.text = String.format("湿度：%s％", document.getDouble("humidity")!!.toString())
-                        soilHumidity.text = String.format("土壌湿度：%s％", document.getDouble("soilHumidity")!!.toString())
+                        /*soilHumidity.text = String.format("土壌湿度：%s％", document.getDouble("soilHumidity")!!.toString())
                         illuminate.text = String.format("照度：%s％", document.getDouble("illuminate")!!.toString())
-                        barometricPressure.text = String.format("気圧：%shPa", document.getDouble("barometricPressure")!!.toString())
+                        barometricPressure.text = String.format("気圧：%shPa", document.getDouble("barometricPressure")!!.toString())*/
                         timeStamp.text = String.format("保存日時：%s", sdf.format(document.getTimestamp("timestamp")!!.toDate()))
-                        camera.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("cameraNumber"))
-                        val imagearray = Base64.decode(document.getString("base64image"), Base64.DEFAULT)
-                        val bitmap = BitmapFactory.decodeByteArray(imagearray, 0, imagearray.size)
+                        id.text = String.format(Locale.JAPAN, "カメラ番号：%1.0f", document.getDouble("id"))
+                        val imageArray = Base64.decode(document.getString("base64image"), Base64.DEFAULT)
+                        val bitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
                         imageView.setImageBitmap(bitmap)
                     }
                     progressDialog.dismiss()
@@ -99,7 +99,6 @@ class ShowSavedDataActivity : AppCompatActivity() {
                 docRef!!.delete()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                SavedDataSelectMenuActivity.deleteFrag = true
                                 progressDialog.dismiss()
                                 finish()
                                 Toast.makeText(applicationContext, "データ削除完了", Toast.LENGTH_LONG).show()

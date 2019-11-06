@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">jetfarm-test1</string>
-    <string name="default_notification_channel_id" translatable="false">jetfarm-test1</string>
-    <string name="default_notification_channel_name" translatable="true">jetfarm-test1</string>
+    <string name="app_name">Agritech-NITHC</string>
+    <string name="default_notification_channel_id" translatable="false">agritech_nithc</string>
+    <string name="default_notification_channel_name" translatable="true">agritech_nithc</string>
 </resources>

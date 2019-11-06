@@ -1,4 +1,4 @@
-package com.yoneya1014.jetfarm_test1
+package com.agritech_nithc.client_app
 
 import android.content.Context
 import android.content.Intent
@@ -50,7 +50,7 @@ class EmptyActivity : AppCompatActivity() {
                 val userData = HashMap<String, Any>()
                 userData["token"] = token
                 val tokenPath = UUID.randomUUID().toString()
-                val preferences = getSharedPreferences("jetfarm-test1-Data", Context.MODE_PRIVATE)
+                val preferences = getSharedPreferences("Agritech-NITHC-Data", Context.MODE_PRIVATE)
                 val savedData = preferences.getString("tokenUUID", "NoData")
                 val editor = preferences.edit()
                 if (savedData === "NoData") {

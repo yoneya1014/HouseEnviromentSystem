@@ -1,5 +1,6 @@
-package com.yoneya1014.jetfarm_test1
+package com.agritech_nithc.client_app
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +10,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
@@ -21,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
     private var mDb: FirebaseFirestore? = null
     private var mEmail: EditText? = null
     private var mPass: EditText? = null
-    private var progress: DialogFragment? = null
+    private var progress: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +57,12 @@ class SignInActivity : AppCompatActivity() {
         if (!validateForm()) {
             return
         }
-        progress = SignInProgressFragment()
-        progress!!.show(supportFragmentManager, null)
+        progress = ProgressDialog(this)
+        progress!!.setMessage("サインインしています")
+        progress!!.setCancelable(false)
+        progress!!.isIndeterminate = false
+        progress!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        progress!!.show()
         mAuth!!.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 mDb = FirebaseFirestore.getInstance()
@@ -74,7 +78,7 @@ class SignInActivity : AppCompatActivity() {
                     val userData = HashMap<String, Any>()
                     userData["token"] = token
                     val tokenPath = UUID.randomUUID().toString()
-                    val preferences = getSharedPreferences("jetfarm-test1-Data", Context.MODE_PRIVATE)
+                    val preferences = getSharedPreferences("Agritech-NITHC-Data", Context.MODE_PRIVATE)
                     val savedData = preferences.getString("tokenUUID", "NoData")
                     val editor = preferences.edit()
                     if (savedData === "NoData") {

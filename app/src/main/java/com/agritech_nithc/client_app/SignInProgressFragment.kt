@@ -1,4 +1,4 @@
-package com.yoneya1014.jetfarm_test1
+package com.agritech_nithc.client_app
 
 import android.app.AlertDialog
 import android.app.Dialog

@@ -9,7 +9,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -19,10 +19,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.text.SimpleDateFormat
-import java.util.*
 
-class MainMenuActivity : AppCompatActivity() {
+class MainMenuActivity : AppCompatActivity(), Runnable {
+
     private var mAuth: FirebaseAuth? = null
     private var imageButton1: ImageButton? = null
     private var imageButton2: ImageButton? = null
@@ -34,6 +33,7 @@ class MainMenuActivity : AppCompatActivity() {
     private var imageButton8: ImageButton? = null
     private var imageButton9: ImageButton? = null
     private var progressFrag = false
+    private val handler = Handler()
     private var mStorageRef: StorageReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +94,6 @@ class MainMenuActivity : AppCompatActivity() {
         }
         mStorageRef = FirebaseStorage.getInstance().reference
         if (netWorkCheck(this)) {
-            dataList.clear()
             val progressDialog = ProgressDialog(this@MainMenuActivity)
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             progressDialog.isIndeterminate = false
@@ -128,19 +127,6 @@ class MainMenuActivity : AppCompatActivity() {
                     }
                 }
             }
-            FirebaseFirestore.getInstance().collection("userSavedData")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result!!) {
-                                val date = document.getTimestamp("timestamp")!!.toDate()
-                                val format = SimpleDateFormat("yyyy年MM月dd日HH時mm分ss秒", Locale.JAPAN)
-                                dataList.add(format.format(date))
-                            }
-                        } else {
-                            Log.d("Result", "Error")
-                        }
-                    }
         } else {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("通信エラー")
@@ -152,12 +138,48 @@ class MainMenuActivity : AppCompatActivity() {
                     }.create()
             builder.show()
         }
+        handler.post(this)
+    }
+
+    override fun run() {
+        if (netWorkCheck(this)) {
+            for (progress_value in 1..9) {
+                val imageRef = mStorageRef!!.child("artboard$progress_value.png")
+                val size = (256 * 256).toLong()
+                imageRef.getBytes(size).addOnCompleteListener { task ->
+                    val data = task.result
+                    assert(data != null)
+                    val bitmap = BitmapFactory.decodeByteArray(data, 0, data!!.size)
+                    when (progress_value) {
+                        1 -> imageButton1!!.setImageBitmap(bitmap)
+                        2 -> imageButton2!!.setImageBitmap(bitmap)
+                        3 -> imageButton3!!.setImageBitmap(bitmap)
+                        4 -> imageButton4!!.setImageBitmap(bitmap)
+                        5 -> imageButton5!!.setImageBitmap(bitmap)
+                        6 -> imageButton6!!.setImageBitmap(bitmap)
+                        7 -> imageButton7!!.setImageBitmap(bitmap)
+                        8 -> imageButton8!!.setImageBitmap(bitmap)
+                        9 -> imageButton9!!.setImageBitmap(bitmap)
+                    }
+                }
+            }
+        } else {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("通信エラー")
+                    .setMessage("コネクションの確立に失敗しました")
+                    .setCancelable(false)
+                    .setPositiveButton("終了") { _, _ ->
+                        finish()
+                        moveTaskToBack(true)
+                    }.create()
+            builder.show()
+        }
+        handler.postDelayed(this, 5000)
     }
 
     public override fun onRestart() {
         super.onRestart()
         if (netWorkCheck(this)) {
-            dataList.clear()
             val progressDialog = ProgressDialog(this@MainMenuActivity)
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             progressDialog.isIndeterminate = false
@@ -191,19 +213,6 @@ class MainMenuActivity : AppCompatActivity() {
                     }
                 }
             }
-            FirebaseFirestore.getInstance().collection("userSavedData")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result!!) {
-                                val date = document.getTimestamp("timestamp")!!.toDate()
-                                val format = SimpleDateFormat("yyyy年MM月dd日HH時mm分ss秒", Locale.JAPAN)
-                                dataList.add(format.format(date))
-                            }
-                        } else {
-                            Log.d("Result", "Error")
-                        }
-                    }
         } else {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("通信エラー")
@@ -230,68 +239,6 @@ class MainMenuActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu3 -> {
-                val mStorageRef = FirebaseStorage.getInstance().reference
-                if (netWorkCheck(this)) {
-                    dataList.clear()
-                    val progressDialog = ProgressDialog(this@MainMenuActivity)
-                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-                    progressDialog.isIndeterminate = false
-                    progressDialog.setCancelable(false)
-                    progressDialog.setMessage("お待ちください")
-                    progressDialog.show()
-                    for (progress_value in 1..9) {
-                        val imageRef = mStorageRef.child("artboard$progress_value.png")
-                        val size = (256 * 256).toLong()
-                        imageRef.getBytes(size).addOnCompleteListener { task ->
-                            val data = task.result
-                            assert(data != null)
-                            val bitmap = BitmapFactory.decodeByteArray(data, 0, data!!.size)
-                            when (progress_value) {
-                                1 -> imageButton1!!.setImageBitmap(bitmap)
-                                2 -> imageButton2!!.setImageBitmap(bitmap)
-                                3 -> imageButton3!!.setImageBitmap(bitmap)
-                                4 -> imageButton4!!.setImageBitmap(bitmap)
-                                5 -> imageButton5!!.setImageBitmap(bitmap)
-                                6 -> imageButton6!!.setImageBitmap(bitmap)
-                                7 -> imageButton7!!.setImageBitmap(bitmap)
-                                8 -> imageButton8!!.setImageBitmap(bitmap)
-                                9 -> {
-                                    imageButton9!!.setImageBitmap(bitmap)
-                                    progressFrag = true
-                                }
-                            }
-                            if (progressFrag) {
-                                progressDialog.dismiss()
-                                progressFrag = false
-                            }
-                        }
-                    }
-                    FirebaseFirestore.getInstance().collection("userSavedData")
-                            .get()
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    for (document in task.result!!) {
-                                        val date = document.getTimestamp("timestamp")!!.toDate()
-                                        val format = SimpleDateFormat("yyyy年MM月dd日HH時mm分ss秒", Locale.JAPAN)
-                                        dataList.add(format.format(date))
-                                    }
-                                } else {
-                                    Log.d("Result", "Error")
-                                }
-                            }
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("通信エラー")
-                            .setMessage("コネクションの確立に失敗しました")
-                            .setCancelable(false)
-                            .setPositiveButton("終了") { _, _ ->
-                                finish()
-                                moveTaskToBack(true)
-                            }.create()
-                    builder.show()
-                }
-            }
             R.id.menu4 -> {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("バージョン情報")
@@ -334,10 +281,5 @@ class MainMenuActivity : AppCompatActivity() {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val info = cm.activeNetworkInfo
         return info?.isConnected ?: false
-    }
-
-    companion object {
-
-        var dataList: MutableList<String> = ArrayList()
     }
 }

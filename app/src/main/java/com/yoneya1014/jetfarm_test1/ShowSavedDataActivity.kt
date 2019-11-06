@@ -99,7 +99,6 @@ class ShowSavedDataActivity : AppCompatActivity() {
                 docRef!!.delete()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                SavedDataSelectMenuActivity.deleteFrag = true
                                 progressDialog.dismiss()
                                 finish()
                                 Toast.makeText(applicationContext, "データ削除完了", Toast.LENGTH_LONG).show()

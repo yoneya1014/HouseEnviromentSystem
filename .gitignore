@@ -2,7 +2,7 @@
 .gradle/
 build/
 app/build/
-gradle/wrapper/*
+gradle/
 google-services.json
 *.iml
 local.properties

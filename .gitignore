@@ -2,6 +2,6 @@
 .gradle/
 build/
 app/build/
-gradle/
+gradle/*
 google-services.json
 *.iml

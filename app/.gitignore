@@ -1,9 +1,0 @@
-.idea/
-.gradle/
-build/
-gradle/
-google-services.json
-*.iml
-local.properties
-gradlew
-gradlew.bat

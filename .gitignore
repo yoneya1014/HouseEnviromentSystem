@@ -2,7 +2,9 @@
 .gradle/
 build/
 app/build/
-gradle/
+gradle/*
 google-services.json
 *.iml
 local.properties
+gradlew
+gradlew.bat
